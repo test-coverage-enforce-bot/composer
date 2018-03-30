@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.ballerinalang</groupId>
@@ -90,14 +90,14 @@
                         </goals>
                         <configuration>
                             <target name="copy js files to target">
-                                <mkdir dir="${build.directory}/js-files-from-web" />
-                                <copy todir="${build.directory}/js-files-from-web" overwrite="true" flatten="true">
+                                <mkdir dir="${build.directory}/js-files-from-web"/>
+                                <copy flatten="true" overwrite="true" todir="${build.directory}/js-files-from-web">
                                     <fileset dir="${build.directory}/extracted-web/">
-                                        <include name="**/*.js" />
+                                        <include name="**/*.js"/>
                                     </fileset>
                                     <chainedmapper>
-                                        <flattenmapper />
-                                        <regexpmapper from="(.+)-([0-9a-f]+).js" to="\1.js" />
+                                        <flattenmapper/>
+                                        <regexpmapper from="(.+)-([0-9a-f]+).js" to="\1.js"/>
                                     </chainedmapper>
                                 </copy>
                             </target>
@@ -156,7 +156,15 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+        <plugin>
+	<groupId>org.jacoco</groupId>
+	<artifactId>jacoco-maven-plugin</artifactId>
+</plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+</plugin>
+    </plugins>
     </build>
 
     <profiles>
